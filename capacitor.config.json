@@ -1,0 +1,9 @@
+{
+  "appId": "com.rajniti.game",
+  "appName": "Rajniti",
+  "webDir": "www",
+  "server": {
+    "url": "https://maofficial803-spec.github.io/rajniti/",
+    "androidScheme": "https"
+  }
+}
