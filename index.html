@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#0e1a2b">
+    <title>Rajniti - The Grand Strategy</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="mobile.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+</head>
+<body>
+
+    <!-- 1. Splash Screen -->
+    <div id="splash-screen" class="screen">
+        <div class="splash-container">
+            <img id="netaji-video" src="splash.png" alt="Rajniti" onerror="var n=['splash.jpg','splash.jpeg','splash.webp'],i=(this.dataset.i|0);if(i<n.length){this.dataset.i=i+1;this.src=n[i];}else{this.style.display='none';}">
+            <h1 class="splash-title" style="visibility:hidden">RAJNITI</h1>
+            <div class="evm-loading">
+                <span class="led-blink"></span>
+                <span class="loading-text">Booting War-Room...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Main Dashboard (Page 1) -->
+    <div id="main-dashboard" class="screen hidden">
+        <div class="dash-top-bar">
+            <div class="user-id-box">
+                <span class="user-icon">&#128100;</span>
+                <span id="display-username">Mohd Mohsin</span>
+            </div>
+            <div class="settings-box" id="btn-settings" title="Settings">
+                <span>[SET]</span>
+            </div>
+        </div>
+
+        <div class="dash-grid-container">
+            <div class="dash-left-column">
+                <div class="dash-card big-card" onclick="openElection('lok-sabha')">
+                    <h2>LOK SABHA ELECTION</h2>
+                </div>
+                <div class="dash-card big-card" onclick="openElection('state-assembly')">
+                    <h2>State Assembly Election</h2>
+                </div>
+            </div>
+
+            <div class="dash-right-column">
+                <div class="dash-card career-card" onclick="showComingSoon('Career Mode')">
+                    <h3>CARRIER MODE</h3>
+                    <p>start your political journey</p>
+                </div>
+
+                <div class="mla-mp-row">
+                    <div class="dash-card small-card" onclick="openConstituency(1)">
+                        <span>&#9312;</span>
+                        <p>Fight in your constituency (M.L.A)</p>
+                    </div>
+                    <div class="dash-card small-card" onclick="openConstituency(2)">
+                        <span>&#9313;</span>
+                        <p>Fight in your constituency (M.P)</p>
+                    </div>
+                </div>
+
+                <div class="dash-card hot-event-card" onclick="showComingSoon('Hot Event')">
+                    <h3>HOT event</h3>
+                    <span class="badge-soon">Coming Soon</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="dash-bottom-bar">
+            <button class="house-btn" onclick="openHouse('lower-house')">LOWER HOUSE</button>
+            <button class="house-btn" onclick="openHouse('upper-house')">UPPER HOUSE</button>
+            <button class="house-btn" data-pres="1" onclick="openHouse('president')">PRESIDENT</button>
+            <button class="house-btn house-sarkar" onclick="GH.open()">SARKAR</button>
+        </div>
+    </div>
+
+    <!-- 3. Page 2: Become PM? (Setup Screen) -->
+    <div id="become-pm-screen" class="screen hidden">
+        <div class="pm-container">
+            <h1 class="pm-title">Become PM?</h1>
+
+            <div class="matchup-boxes">
+                <div class="party-select-box" id="select-you-box" onclick="openPartyModal('you')">
+                    <div class="box-inner" id="you-box-content">
+                        <span class="box-label">YOU</span>
+                        <div class="selected-party-display">
+                            <p id="you-text">Select Your Party</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vs-text">V/S</div>
+
+                <div class="party-select-box" id="select-opp-box" onclick="openPartyModal('opp')">
+                    <div class="box-inner" id="opp-box-content">
+                        <span class="box-label">OPPONENT</span>
+                        <div class="selected-party-display">
+                            <p id="opp-text">Select Rival Party</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="options-section">
+                <div class="option-row">
+                    <span class="option-label">Choose Fight :</span>
+                    <select id="choose-fight-select" class="game-select">
+                        <option value="alone">Alone</option>
+                        <option value="alliance">Alliance</option>
+                    </select>
+                </div>
+
+                <div class="option-row">
+                    <span class="option-label">Fight As :</span>
+                    <select id="fight-as-select" class="game-select">
+                        <option value="incumbent">Incumbent (Ruling)</option>
+                        <option value="against">Against Incumbent (Opposition)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <button class="back-btn" onclick="goBackToDashboard()">&larr; Back</button>
+                <button id="btn-page2-next" class="next-btn" onclick="goToNextPage()">NEXT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Page 3: Election Campaign -->
+    <div id="campaign-setup-screen" class="screen hidden">
+        <div class="pm-container" style="width: 820px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <button class="back-btn" onclick="goBackToPMPage()">&larr; Back</button>
+                <h1 class="pm-title" style="margin: 0;">Election Campaign</h1>
+                <span id="election-mode-badge" style="background: #3b82f6; color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">ALONE MODE</span>
+            </div>
+
+            <div id="campaign-layout-area" style="margin-bottom: 25px;"></div>
+
+            <button class="next-btn" style="width: 100%; background: #2563eb;" onclick="openSeatSharingPage()">SEAT SHARING &rarr;</button>
+        </div>
+    </div>
+
+    <!-- 5. Page 4: Seat Sharing & Alliance -->
+    <div id="seat-sharing-screen" class="screen hidden">
+        <div class="pm-container" style="width: 920px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <button class="back-btn" onclick="goBackToCampaign()">&larr; Back</button>
+                <h1 class="pm-title" style="margin: 0;">Seat Sharing &amp; Alliance</h1>
+                <span></span>
+            </div>
+
+            <div id="seat-sharing-container" style="max-height: 400px; overflow-y: auto; margin-bottom: 20px; padding: 5px;"></div>
+
+            <button class="next-btn" style="width: 100%; background: #22c55e;" onclick="startWarRoomMap()">LET'S GO TO FIGHT !</button>
+        </div>
+    </div>
+
+    <!-- 6. Page 5: Main War-Room Dashboard -->
+    <div id="warroom-screen" class="warroom-screen hidden">
+        <!-- Top Bar -->
+        <div class="wr-top-bar">
+            <div class="wr-top-left">
+                <button class="wr-icon-btn" onclick="openGameModal('Settings')">[SET]</button>
+                <div class="wr-party-badge" id="wr-you-party-box">
+                    <span class="wr-logo" id="wr-you-logo">INC</span>
+                    <span class="wr-seats" id="wr-you-seats">Seats: 0</span>
+                </div>
+                <div class="wr-party-badge" id="wr-opp-party-box">
+                    <span class="wr-logo" id="wr-opp-logo">BJP</span>
+                    <span class="wr-seats" id="wr-opp-seats">Seats: 0</span>
+                </div>
+            </div>
+            <div class="wr-top-right">
+                <button class="wr-round-btn" id="wr-round-btn" onclick="advanceRound()">Phase 1 - Round 1 [GO]</button>
+            </div>
+        </div>
+
+        <!-- Middle Core Area -->
+        <div class="wr-core-area">
+            <!-- Left Sidebar Icons -->
+            <div class="wr-sidebar wr-left-sidebar">
+                <button class="wr-side-icon" onclick="openGameModal('Bank')">BNK</button>
+                <button class="wr-side-icon" onclick="openGameModal('Stamina')">STM</button>
+                <button class="wr-side-icon" onclick="openGameModal('Media &amp; Rallies')">MED</button>
+                <button class="wr-side-icon" onclick="openGameModal('IT Cell &amp; Social')">ITC</button>
+                <button class="wr-side-icon" onclick="openGameModal('Manifesto')">MAN</button>
+                <button class="wr-side-icon" onclick="openGameModal('Poaching')">POA</button>
+                <button class="wr-side-icon" onclick="openGameModal('VIP Seats')">VIP</button>
+                <button class="wr-side-icon" onclick="openGameModal('White Fund')">WHT</button>
+                <button class="wr-side-icon" onclick="openGameModal('Black Fund')">BLK</button>
+            </div>
+
+            <!-- Status Panel: Stamina / Turnout / Budget -->
+            <div class="wr-status-panel">
+                <div class="sp-title" id="sp-phase-title">Phase 1 / 7</div>
+
+                <div class="sp-block">
+                    <div class="sp-label"><span>Stamina</span><span id="sp-stamina-val">100%</span></div>
+                    <div class="sp-bar"><div class="sp-fill" id="sp-stamina-fill"></div></div>
+                </div>
+
+                <div class="sp-block">
+                    <div class="sp-label"><span>Voter Turnout</span><span id="sp-turnout-val">0%</span></div>
+                    <div class="sp-bar"><div class="sp-fill" id="sp-turnout-fill"></div></div>
+                </div>
+
+                <div class="sp-block">
+                    <div class="sp-label"><span>Budget</span><span id="sp-budget-val">100 Cr</span></div>
+                    <div class="sp-bar"><div class="sp-fill" id="sp-budget-fill"></div></div>
+                    <div class="sp-sub" id="sp-black-val">Black Fund: 0 Cr</div>
+                </div>
+
+                <div class="sp-test">
+                    <div class="sp-test-title">Developer</div>
+                    <button class="sp-test-btn" onclick="showPhaseReport()">Phase data jaanch</button>
+                </div>
+            </div>
+
+            <!-- Central Map Area -->
+            <div class="wr-map-area">
+                <div class="wr-map-header">
+                    <h3 id="map-heading-title">INDIA WAR-ROOM MAP (National State View)</h3>
+                    <div class="wr-map-switches">
+                        <button class="wr-switch-btn active" id="btn-national-view" onclick="resetToNationalView()">National View</button>
+                    </div>
+                </div>
+                <div class="wr-map-canvas" id="interactive-map-canvas">
+                    <!-- Map is injected via JS -->
+                </div>
+            </div>
+
+            <!-- Right Sidebar Icons -->
+            <div class="wr-sidebar wr-right-sidebar">
+                <button class="wr-side-icon" onclick="openGameModal('Opponent Bank')">OPP</button>
+                <button class="wr-side-icon" onclick="openGameModal('Narrative Engine')">NAR</button>
+                <button class="wr-side-icon" onclick="openGameModal('Courts Case')">CRT</button>
+                <button class="wr-side-icon" onclick="openGameModal('EC Scrutiny &amp; MCC')">MCC</button>
+                <button class="wr-side-icon" onclick="openGameModal('Local Guru')">GUR</button>
+                <button class="wr-side-icon" onclick="openGameModal('Spy')">SPY</button>
+                <button class="wr-side-icon" onclick="openGameModal('Media Debates')">DEB</button>
+                <button class="wr-side-icon" onclick="openGameModal('Crisis Mgmt')">KRY</button>
+                <button class="wr-side-icon" onclick="openGameModal('Transfer DM/SP')">DMS</button>
+                <button class="wr-side-icon" onclick="openGameModal('Hawa Engine')">HWA</button>
+            </div>
+        </div>
+
+        <!-- Bottom 3 Status Boxes -->
+        <div class="wr-bottom-boxes">
+            <div class="wr-box" id="wr-seat-status">
+                <h4>Seat Status</h4>
+                <p id="wr-seat-status-text">&bull; Abhi kisi party ne koi seat nahi jeeti.</p>
+            </div>
+            <div class="wr-box" id="wr-state-status">
+                <h4>State Status</h4>
+                <p id="wr-state-status-text">&bull; Phase 1 Active</p>
+            </div>
+            <div class="wr-box" id="wr-media-headline">
+                <h4>Media Headline</h4>
+                <p>"Rallies intensify across northern belt as opposition accuses ruling camp of fund misuse."</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generic Game Modals -->
+    <div id="wr-modal" class="modal hidden">
+        <div class="modal-content" style="width: 550px; background: #131b2e; border: 2px solid #38bdf8;">
+            <h2 id="wr-modal-title" style="color: #ff9933; margin-bottom: 15px;">Panel</h2>
+            <div id="wr-modal-body" style="color: #e2e8f0; margin-bottom: 20px; text-align: left; max-height: 250px; overflow-y: auto;"></div>
+            <button class="close-modal-btn" onclick="closeGameModal()">Close Panel</button>
+        </div>
+    </div>
+
+    <!-- Phase End Modal -->
+    <div id="phase-modal" class="modal hidden">
+        <div class="modal-content" style="width: 480px;">
+            <h2 id="phase-modal-title">Phase khatm</h2>
+            <p id="phase-modal-body" style="color: #cbd5e1; margin-bottom: 20px; line-height: 1.5;"></p>
+            <button class="next-btn" id="phase-modal-btn" onclick="startNextPhase()">Next Phase</button>
+        </div>
+    </div>
+
+    <!-- Party Selection Modal -->
+    <div id="party-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="modal-title">Select Political Party</h2>
+            <div id="party-grid" class="party-grid"></div>
+            <button class="close-modal-btn" onclick="closePartyModal()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- State Selection Modal -->
+    <div id="state-modal" class="modal hidden">
+        <div class="modal-content" style="width: 600px;">
+            <h2 id="state-modal-title">Select Operating States &amp; UTs</h2>
+            <div id="state-grid" class="party-grid" style="grid-template-columns: repeat(3, 1fr); max-height: 300px; overflow-y: auto;"></div>
+            <button class="next-btn" style="margin-top: 15px; padding: 6px 20px;" onclick="closeStateModal()">Done</button>
+        </div>
+    </div>
+
+    <!-- Phase Result Page -->
+    <div id="results-screen" class="results-screen hidden">
+        <div class="rs-top">
+            <div>
+                <h1 id="rs-title">Phase 1 / 7 - Natija</h1>
+                <div id="rs-sub" class="rs-sub"></div>
+            </div>
+            <button id="rs-next-btn" class="next-btn" onclick="closeResultsPage()">Next Round</button>
+        </div>
+        <div class="rs-body">
+            <div class="rs-col">
+                <h3>Party-wise</h3>
+                <div id="rs-party-table"></div>
+                <div id="rs-alliance"></div>
+            </div>
+            <div class="rs-col">
+                <h3>State-wise natija</h3>
+                <div id="rs-state-table" class="rs-scroll"></div>
+            </div>
+            <div class="rs-col rs-wide">
+                <h3>Seat-wise natija</h3>
+                <div id="rs-seat-table" class="rs-scroll"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
+    <script src="india-data.js" charset="utf-8"></script>
+    <script src="script.js"></script>
+    <script src="assembly-data.js" charset="utf-8"></script>
+    <script src="party-emblem.js" charset="utf-8"></script>
+    <script src="state-assembly.js" charset="utf-8"></script>
+    <script src="career-mode.js" charset="utf-8"></script>
+    <script src="career-hub.js" charset="utf-8"></script>
+    <script src="ls2024-data.js" charset="utf-8"></script>
+    <script src="constituency.js" charset="utf-8"></script>
+    <script src="gov-hub.js" charset="utf-8"></script>
+    <script src="ls-war2.js" charset="utf-8"></script>
+    <script src="pwa.js"></script>
+</body>
+</html>
