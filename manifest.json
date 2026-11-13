@@ -1,0 +1,17 @@
+{
+  "name": "Rajniti - The Grand Strategy",
+  "short_name": "Rajniti",
+  "description": "Bharat ka chunav simulator: Lok Sabha, Vidhan Sabha, Career aur Sarkar.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#0e1a2b",
+  "theme_color": "#0e1a2b",
+  "lang": "hi",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
