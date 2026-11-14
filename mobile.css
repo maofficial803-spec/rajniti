@@ -1,18 +1,144 @@
-/* ===== Mobile / chhoti screen ke liye ===== */
+/* =====================================================================
+   RAJNITI - MOBILE (phone landscape) STYLES
+   Pehle se rakhe niyam (sab screens par)
+   ===================================================================== */
 *{-webkit-tap-highlight-color:transparent}
 button,.wr-side-icon,.sa-ic,[onclick]{touch-action:manipulation}
-html,body{max-width:100%;overflow-x:hidden}
+html,body{max-width:100%;overflow-x:hidden;overscroll-behavior:none;-webkit-text-size-adjust:100%}
+
+/* =====================================================================
+   STEP 1: HOME + SETUP SCREENS  (phone landscape: chhoti height)
+   Home -> Become PM -> Party chuno -> Gathbandhan -> Seat sharing
+   ===================================================================== */
+@media (orientation:landscape) and (max-height:520px){
+html body .s30-blob{display:none!important}
+html body .s30-full,html body .s30-card,html body .s30-side,html body .s30-state,html body .s30-hbox,html body .s30-back,html body .s30-foot,html body .pm-container,html body .modal{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+html body .s30-card,html body .s30-ally,html body .s30-state,html body .s30-head,html body .s30-tools,html body .s30-side,html body .s30-hero{animation:none!important}
+html body .screen{padding:6px 12px!important}
+html body #main-dashboard{padding:6px 12px!important}
+html body .dash-top-bar{padding:0!important;height:34px!important;flex:none!important}
+html body .user-id-box{padding:4px 12px!important;font-size:.8rem!important;border-radius:16px!important}
+html body .settings-box{padding:5px 8px!important;display:flex!important;align-items:center!important;justify-content:center!important}
+html body .settings-box svg,html body .settings-box img{width:18px!important;height:18px!important}
+html body #main-dashboard .dash-grid-container{display:grid!important;grid-template-columns:1.15fr 1fr!important;grid-template-rows:1.7fr 1fr 1fr!important;grid-auto-rows:auto!important;gap:8px!important;width:min(64%,520px)!important;margin:6px 0!important;flex:1!important;min-height:0!important;align-content:stretch!important}
+html body #main-dashboard .dash-left-column .big-card:nth-child(1){grid-column:1!important;grid-row:1!important;min-height:0!important}
+html body #main-dashboard .dash-left-column .big-card:nth-child(2){grid-column:1!important;grid-row:2/4!important;min-height:0!important}
+html body #main-dashboard .career-card{grid-column:2!important;grid-row:1!important;min-height:0!important}
+html body #main-dashboard .mla-mp-row{grid-column:2!important;grid-row:2!important;display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important}
+html body #main-dashboard .hot-event-card{grid-column:2!important;grid-row:3!important;min-height:0!important}
+html body #main-dashboard .dash-card{padding:6px 8px!important;border-radius:12px!important;min-height:0!important}
+html body #main-dashboard .big-card h2{font-size:.95rem!important;letter-spacing:1px!important;line-height:1.2!important}
+html body #main-dashboard .career-card h3,html body #main-dashboard .hot-event-card h3{font-size:.85rem!important}
+html body #main-dashboard .career-card p{font-size:.62rem!important}
+html body #main-dashboard .small-card{padding:4px 6px!important}
+html body #main-dashboard .small-card span{font-size:.9rem!important}
+html body #main-dashboard .small-card p{font-size:.58rem!important;line-height:1.15!important}
+html body #main-dashboard .badge-soon{font-size:.55rem!important;top:4px!important;right:4px!important}
+html body #main-dashboard .dash-bottom-bar{width:auto!important;margin:0!important;flex:none!important;flex-wrap:nowrap!important;gap:8px!important;height:40px!important}
+html body #main-dashboard .dash-bottom-bar .house-btn{flex:1 1 0!important;min-height:0!important;height:40px!important;padding:2px 6px!important;font-size:.68rem!important;letter-spacing:.5px!important;border-radius:10px!important;line-height:1.15!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important}
+html body #main-dashboard .dash-bottom-bar .house-btn small,html body #main-dashboard .dash-bottom-bar .house-btn span{font-size:.52rem!important;letter-spacing:0!important;margin-top:1px!important}
+html body #main-dashboard .dash-bottom-bar .house-btn.house-sarkar{flex:.7 1 0!important}
+html body #become-pm-screen{padding:0!important;justify-content:center!important;overflow-y:auto!important}
+html body #become-pm-screen .pm-container{width:100%!important;max-width:none!important;min-height:0!important;padding:8px 16px!important;border-radius:0!important;display:flex!important;flex-direction:column!important;justify-content:center!important;gap:6px!important;box-sizing:border-box!important}
+html body #become-pm-screen .pm-title{font-size:1.15rem!important;margin:0 0 2px!important;letter-spacing:2px!important;text-align:center!important}
+html body #become-pm-screen .matchup-boxes{flex-direction:row!important;gap:10px!important;margin:0!important;align-items:center!important;justify-content:space-between!important}
+html body #become-pm-screen .party-select-box{width:auto!important;max-width:none!important;flex:1!important;height:96px!important;min-height:0!important;border-radius:14px!important}
+html body #become-pm-screen .party-select-box:hover{transform:none!important}
+html body #become-pm-screen .box-inner{width:100%!important;height:100%!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0 8px!important}
+html body #become-pm-screen .box-label{top:5px!important;left:10px!important;font-size:.55rem!important;letter-spacing:2px!important}
+html body #become-pm-screen .selected-party-display p{font-size:.85rem!important}
+html body #become-pm-screen .s22-sel{flex-direction:row!important;gap:10px!important;align-items:center!important;text-align:left!important;margin-top:8px!important}
+html body #become-pm-screen .s22-sel img,html body #become-pm-screen .s22-sel .s22-badge,html body #become-pm-screen .s22-sel svg{width:48px!important;height:48px!important;font-size:11px!important;flex:none!important}
+html body #become-pm-screen .s22-sel .nm{font-size:.95rem!important;line-height:1.15!important}
+html body #become-pm-screen .s22-sel .sb{font-size:.58rem!important}
+html body #become-pm-screen .vs-text{font-size:1.2rem!important;flex:none!important}
+html body #become-pm-screen .options-section{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:10px!important;margin:0!important;padding:8px 12px!important;border-radius:14px!important}
+html body #become-pm-screen .option-row{flex-direction:column!important;align-items:stretch!important;gap:3px!important}
+html body #become-pm-screen .option-label{font-size:.68rem!important;white-space:nowrap!important}
+html body #become-pm-screen .game-select{padding:5px 8px!important;font-size:.75rem!important;width:100%!important;min-height:32px!important;border-radius:8px!important}
+html body #become-pm-screen .back-btn,html body #become-pm-screen .next-btn{padding:6px 22px!important;font-size:.8rem!important;border-radius:20px!important;min-height:34px!important;letter-spacing:1px!important}
+html body .s30-full{overflow-y:auto!important;-webkit-overflow-scrolling:touch!important}
+html body .s30-wrap{padding:6px 12px 10px!important;max-width:none!important}
+html body .s30-head{gap:10px!important;margin-bottom:6px!important;align-items:center!important}
+html body .s30-head h1{font-size:1.05rem!important;letter-spacing:.5px!important;line-height:1.15!important}
+html body .s30-head p{display:none!important}
+html body .s30-back{padding:6px 12px!important;font-size:.72rem!important;min-height:30px!important;border-radius:18px!important;flex:none!important;white-space:nowrap!important}
+html body .s30-badge{padding:4px 10px!important;font-size:.6rem!important;letter-spacing:1px!important}
+html body .s30-tools{gap:6px!important;margin-bottom:6px!important;flex-wrap:nowrap!important;overflow-x:auto!important}
+html body .s30-tools input{min-width:0!important;flex:1 1 140px!important;padding:6px 12px!important;font-size:.8rem!important;border-radius:18px!important}
+html body .s30-pill{padding:5px 10px!important;font-size:.68rem!important;white-space:nowrap!important;flex:none!important;min-height:28px!important}
+html body .s30-grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr))!important;gap:8px!important;padding-bottom:56px!important}
+html body .s30-sec{font-size:.65rem!important;margin-top:2px!important}
+html body .s30-card{padding:8px 10px!important;gap:10px!important;border-radius:12px!important}
+html body .s30-card:hover{transform:none!important}
+html body .s30-card .s22-badge,html body .s30-card img,html body .s30-card svg{width:38px!important;height:38px!important;font-size:9px!important;flex:none!important}
+html body .s30-card b{font-size:.78rem!important}
+html body .s30-card span.w{font-size:.6rem!important;margin-top:0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+html body .s30-tag{margin-top:3px!important;font-size:.52rem!important;padding:1px 7px!important}
+html body .s30-card.on::after{width:18px!important;height:18px!important;right:8px!important;top:6px!important;font-size:.65rem!important}
+html body .s30-foot{padding:6px 10px!important;gap:8px!important}
+html body .s30-foot .cnt{font-size:.78rem!important}
+html body .s30-btn{padding:8px 18px!important;font-size:.78rem!important;min-height:34px!important;border-radius:20px!important}
+html body .s30-btn.sm{padding:5px 10px!important;font-size:.64rem!important;min-height:28px!important}
+html body #campaign-setup-screen .s30-wrap{height:100%!important;min-height:0!important}
+html body #campaign-setup-screen .s30-vs{gap:8px!important;margin-bottom:6px!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important}
+html body .s30-side{padding:8px 10px!important;border-radius:14px!important;overflow:visible!important}
+html body .s30-side h3{font-size:.6rem!important;letter-spacing:2px!important;margin-bottom:2px!important}
+html body .s30-count{font-size:.58rem!important;padding:1px 8px!important;margin-left:6px!important}
+html body .s30-main{margin:4px 0 6px!important;padding:6px 8px!important;gap:8px!important;border-radius:12px!important}
+html body .s30-main .s22-badge,html body .s30-main img,html body .s30-main svg{width:40px!important;height:40px!important;flex:none!important}
+html body .s30-main b{font-size:.9rem!important}
+html body .s30-main span{font-size:.62rem!important}
+html body .s30-vsmid{font-size:1.1rem!important;letter-spacing:1px!important}
+html body .s30-allies{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))!important;gap:6px!important}
+html body .s30-ally{padding:6px 8px!important;border-radius:10px!important}
+html body .s30-ally:hover{transform:none!important}
+html body .s30-ally .t{gap:6px!important}
+html body .s30-ally .t .s22-badge,html body .s30-ally .t img,html body .s30-ally .t svg{width:28px!important;height:28px!important;flex:none!important}
+html body .s30-ally b{font-size:.7rem!important}
+html body .s30-ally small{font-size:.54rem!important}
+html body .s30-ally .bt{margin-top:5px!important;gap:4px!important}
+html body .s30-add{min-height:48px!important;font-size:.68rem!important;border-radius:10px!important;padding:4px!important}
+html body .s30-actions{margin-top:6px!important;gap:6px!important}
+html body .s30-empty{padding:14px 10px!important;font-size:.72rem!important;border-radius:12px!important}
+html body .s30-bottom{margin-top:4px!important;flex:none!important}
+html body #seat-sharing-screen .s30-wrap{height:100%!important;min-height:0!important}
+html body .s30-hero{gap:8px!important;margin-bottom:6px!important}
+html body .s30-hbox{padding:6px 10px!important;border-radius:12px!important}
+html body .s30-hbox small{font-size:.5rem!important;letter-spacing:1px!important}
+html body .s30-hbox b{font-size:1.3rem!important}
+html body .s30-hbox .s30-btn{margin-top:2px!important}
+html body .s30-list{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))!important;gap:8px!important;flex:1!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;padding-bottom:4px!important}
+html body .s30-state{padding:8px 10px!important;border-radius:12px!important}
+html body .s30-state .hd{margin-bottom:4px!important}
+html body .s30-state .hd b{font-size:.82rem!important}
+html body .s30-state .hd span{font-size:.62rem!important}
+html body .s30-split{gap:8px!important}
+html body .s30-split .side{min-width:60px!important}
+html body .s30-split .side i{font-size:1.1rem!important}
+html body .s30-split .side small{font-size:.52rem!important;max-width:70px!important}
+html body .s30-split .side .s22-badge,html body .s30-split .side img,html body .s30-split .side svg{width:26px!important;height:26px!important}
+html body .s30-split input[type=range]{height:24px!important}
+html body .s30-chips{margin-top:4px!important;gap:4px!important}
+html body .s30-chip{font-size:.55rem!important;padding:1px 6px 1px 2px!important}
+html body .s30-chip .s22-badge,html body .s30-chip img,html body .s30-chip svg{width:16px!important;height:16px!important}
+html body #state-modal .modal-content,html body #party-modal .modal-content,html body #wr-modal .modal-content{width:min(94vw,640px)!important;max-width:94vw!important;max-height:94vh!important;padding:10px 14px!important;border-radius:16px!important}
+html body #state-modal h2{font-size:.95rem!important;margin:0 0 2px!important}
+html body #state-modal .s32-sub{font-size:.62rem!important;margin-bottom:4px!important}
+html body #state-modal .s32-tools{gap:6px!important;margin-bottom:4px!important}
+html body #state-modal .s32-tools button{padding:4px 12px!important;font-size:.68rem!important;min-height:28px!important}
+html body #state-modal #state-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))!important;gap:6px!important}
+html body #state-modal .party-option-card{padding:6px 8px!important;border-radius:10px!important;gap:6px!important}
+html body #state-modal .party-option-card span{font-size:.68rem!important}
+html body #state-modal input[type=checkbox]{width:16px!important;height:16px!important}
+html body #state-modal .next-btn{margin-top:6px!important;padding:7px 28px!important;font-size:.8rem!important;min-height:34px!important}
+}
+
+/* =====================================================================
+   BAAKI SCREENS (War-room, State, MP/MLA, Career, Sarkar) - abhi purana
+   mobile niyam; inhe agle steps me naye tareeke se badlenge.
+   ===================================================================== */
 @media (max-width:820px){
-  /* Home */
-  #main-dashboard .dash-grid-container{width:auto!important;margin:8px!important;grid-template-columns:1fr 1fr!important;grid-template-rows:none!important;grid-auto-rows:minmax(104px,auto);gap:10px!important}
-  #main-dashboard .dash-left-column .big-card:nth-child(1),#main-dashboard .dash-left-column .big-card:nth-child(2),#main-dashboard .career-card,#main-dashboard .hot-event-card{grid-column:1/-1!important;grid-row:auto!important;min-height:120px}
-  #main-dashboard .mla-mp-row{grid-column:1/-1!important;grid-row:auto!important}
-  #main-dashboard .dash-bottom-bar{width:auto!important;margin:6px 8px!important;flex-wrap:wrap;gap:8px!important}
-  #main-dashboard .dash-bottom-bar .house-btn{flex:1 1 44%!important;min-height:44px;font-size:.8rem}
-  .dash-top-bar{padding:6px 10px}
-  /* Pehle ke screens */
-  .pm-container{padding:16px!important;width:94vw!important;max-width:94vw!important}
-  .matchup-boxes{flex-direction:column;gap:10px}
   /* Lok Sabha war-room */
   .warroom-screen{height:100dvh;overflow-y:auto}
   .wr-top-bar{flex-wrap:wrap;gap:6px;padding:6px}
@@ -39,14 +165,8 @@ html,body{max-width:100%;overflow-x:hidden}
   .sa-gl{padding:12px}.sa-pc .row{grid-template-columns:1fr!important}
   .cs-top{flex-wrap:wrap}
   .ch-wrap,.ch-main{padding:8px!important}
-  h1{font-size:1.6rem}
 }
-@media (max-width:480px){
-  #main-dashboard .mla-mp-row{grid-template-columns:1fr 1fr}
-  #main-dashboard .dash-bottom-bar .house-btn{flex:1 1 100%!important}
-  .gh-top h1{font-size:1.4rem}
-}
-/* Portrait phone: landscape ka sujhav (band kar sakte ho) */
+/* Portrait phone: landscape ka sujhav */
 @media (orientation:portrait) and (max-width:700px){
   body::after{content:"Behtar anubhav ke liye phone ko landscape (aadha) ghumayein";position:fixed;left:0;right:0;bottom:0;z-index:99999;background:#e8a33d;color:#2a1a00;text-align:center;padding:6px 8px;font-weight:700;font-size:12.5px;pointer-events:none}
 }
