@@ -6457,9 +6457,17 @@ function s22Logo(p, size) {
 function s22LogoErr(img) {
     const p = img.getAttribute('data-p');
     const t = img.getAttribute('data-t');
+    const base = S22_DIR + 'Parties/' + encodeURI(s22LogoName(p));
     if (t === '0') {
         img.setAttribute('data-t', '1');
-        img.src = S22_DIR + 'Parties/' + encodeURI(s22LogoName(p)) + '.png';
+        img.src = base + '.png';
+        return;
+    }
+    // network atka ho to thodi der baad dobara try (2 baar), phir hi badge dikhao
+    const n = parseInt(t, 10) || 1;
+    if (n < 4) {
+        img.setAttribute('data-t', String(n + 1));
+        setTimeout(function () { img.src = base + (n % 2 ? '.jpg' : '.png') + '?r=' + Date.now(); }, 900 * n);
         return;
     }
     s22Miss[p] = 1;
@@ -6579,13 +6587,19 @@ function s22LogoFail(img) {
 
 // ---------- 5) Page 1 (dashboard) mein images ----------
 function s22Probe(urls, cb, fail) {
-    let i = 0;
+    // Phone me network kabhi atak jata hai, isliye har list ko 3 baar tak try karte hain
+    let i = 0, round = 0;
     (function next() {
-        if (i >= urls.length) { if (fail) fail(); return; }
+        if (i >= urls.length) {
+            if (round < 2) { round++; i = 0; setTimeout(next, round * 1200); return; }
+            if (fail) fail();
+            return;
+        }
         const im = new Image();
-        im.onload = function () { cb(urls[i]); };
+        const u = urls[i] + (round ? (urls[i].indexOf('?') < 0 ? '?r=' : '&r=') + Date.now() : '');
+        im.onload = function () { cb(u); };
         im.onerror = function () { i++; next(); };
-        im.src = urls[i];
+        im.src = u;
     })();
 }
 function s22Urls(folder, name) {
@@ -6760,6 +6774,15 @@ if (typeof loadGame === 'function') {
 s22Style();
 s22Splash();
 s22Dashboard();
+// Home ke card/button par image na ho to thodi der me dobara koshish (phone ka network atakne par)
+setInterval(function () {
+    try {
+        const d = document.getElementById('main-dashboard');
+        if (!d || d.classList.contains('hidden')) return;
+        const bad = Array.prototype.some.call(d.querySelectorAll('.dash-card'), function (c, i) { return i < 6 && (c.style.backgroundImage || '').indexOf('url(') < 0; });
+        if (bad) s22Dashboard();
+    } catch (e) { }
+}, 4000);
 s22RefreshIcons();
 window.addEventListener('DOMContentLoaded', function () { document.title = 'Rajniti - The Grand Strategy'; });
 
