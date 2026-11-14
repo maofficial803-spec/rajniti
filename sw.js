@@ -1,6 +1,6 @@
 /* Rajniti service worker: update aane par apne aap naya version le leta hai.
    Har update par sirf neeche wali VERSION badal do (ya version.txt). */
-var VERSION = 'v2';
+var VERSION = 'v3';
 var CACHE = 'rajniti-' + VERSION;
 var CORE = ['./', './index.html', './style.css', './mobile.css', './script.js', './india-data.js', './assembly-data.js', './ls2024-data.js', './party-emblem.js',
     './state-assembly.js', './constituency.js', './career-mode.js', './career-hub.js', './gov-hub.js', './ls-war2.js', './manifest.json'];
